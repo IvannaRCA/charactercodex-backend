@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.ivanna.charactercodex.entity.Armor;
 
 public interface ArmorRepository extends JpaRepository<Armor, UUID>{
-    boolean eexistsByName(String name);
+    boolean existsByName(String name);
 }

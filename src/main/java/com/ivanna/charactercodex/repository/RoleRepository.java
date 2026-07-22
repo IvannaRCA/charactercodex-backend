@@ -10,5 +10,5 @@ import com.ivanna.charactercodex.entity.Role;
 public interface RoleRepository extends JpaRepository<Role, UUID>{
     Optional<Role> findByName(String name);
     
-    boolean exexistsByName(String name);
+    boolean existsByName(String name);
 }
