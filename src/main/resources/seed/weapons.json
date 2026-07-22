@@ -1,0 +1,6 @@
+[
+  { "name": "Shortsword", "description": "A light, versatile blade favored by quick fighters.", "damage": "1d6" },
+  { "name": "Longsword", "description": "A balanced blade suited for one or two-handed combat.", "damage": "1d8" },
+  { "name": "Greataxe", "description": "A massive axe that deals devastating blows.", "damage": "1d12" },
+  { "name": "Staff of Fire", "description": "An arcane staff imbued with elemental fire.", "damage": "2d4" }
+]

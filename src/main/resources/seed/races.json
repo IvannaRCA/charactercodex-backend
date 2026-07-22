@@ -1,0 +1,8 @@
+[
+  { "name": "Human", "description": "Versatile and adaptable, humans are the most common race, gaining a small bonus to all attributes." },
+  { "name": "Elf", "description": "Graceful and long-lived, elves have keen senses and a natural affinity for magic and archery." },
+  { "name": "Dwarf", "description": "Sturdy and resilient, dwarves are known for their resistance to poison and their mastery of stonework." },
+  { "name": "Halfling", "description": "Small and nimble, halflings are lucky and skilled at avoiding danger." },
+  { "name": "Orc", "description": "Strong and fierce, orcs favor brute strength and intimidation in combat." },
+  { "name": "Gnome", "description": "Curious and inventive, gnomes have a natural talent for illusion magic and tinkering." }
+]
