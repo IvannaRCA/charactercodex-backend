@@ -15,12 +15,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="weapons")
+@Table(name="armors")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Weapon {
+public class Armor {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -35,8 +35,8 @@ public class Weapon {
     @NotBlank
     @Pattern(
             regexp = "^\\d+d\\d+$",
-            message = "damage must follow base dice notation, e.g. '1d4', '2d6', '1d8'"
+            message = "defense must follow base dice notation, e.g. '1d4', '2d6', '1d8'"
     )
     @Column(nullable = false, length = 20)
-    private String damage;
+    private String defense;
 }
