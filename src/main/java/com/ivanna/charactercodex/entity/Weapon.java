@@ -8,19 +8,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="classes")
+@Table(name="weapons")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CharClass {
-
+public class Weapon {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -31,4 +31,12 @@ public class CharClass {
 
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    @NotBlank
+    @Pattern(
+            regexp = "^\\d+d\\d+$",
+            message = "defense must follow base dice notation, e.g. '1d4', '2d6', '1d8'"
+    )
+    @Column(nullable = false, length = 20)
+    private String damage;
 }
