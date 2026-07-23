@@ -1,0 +1,8 @@
+[
+  { "name": "Warrior", "description": "A master of martial combat, skilled with a variety of weapons and armor." },
+  { "name": "Wizard", "description": "A scholarly magic-user capable of manipulating the fabric of reality through arcane spells." },
+  { "name": "Cleric", "description": "A divine spellcaster who channels the power of their deity to heal and protect allies." },
+  { "name": "Thief", "description": "A cunning rogue who relies on stealth, agility, and precision strikes." },
+  { "name": "Bard", "description": "A charismatic performer who weaves magic through music and storytelling." },
+  { "name": "Ranger", "description": "A skilled tracker and archer at home in the wilderness." }
+]
