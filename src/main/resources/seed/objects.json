@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Healing Potion",
+    "description": "Restores a moderate amount of health when consumed.",
+    "price": 25
+  },
+  {
+    "name": "Torch",
+    "description": "Provides light in dark places.",
+    "price": 1
+  },
+  {
+    "name": "Rope (50 ft)",
+    "description": "Sturdy rope useful for climbing or binding.",
+    "price": 5
+  },
+  {
+    "name": "Scroll of Identify",
+    "description": "Reveals the magical properties of an item.",
+    "price": 40
+  }
+]

@@ -1,0 +1,5 @@
+[
+  { "name": "Leather Armor", "description": "Light armor offering basic protection without hindering movement.", "defense": "1d4" },
+  { "name": "Chainmail", "description": "Interlocking metal rings providing solid protection.", "defense": "1d6" },
+  { "name": "Plate Armor", "description": "Heavy armor offering the best protection at the cost of mobility.", "defense": "1d8" }
+]
