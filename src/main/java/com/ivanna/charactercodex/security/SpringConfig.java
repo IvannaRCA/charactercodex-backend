@@ -26,7 +26,7 @@ public class SpringConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         JWTAuthentication jwtAuthentication = new JWTAuthentication(customAuthenticationManager, secret);
-        jwtAuthentication.setFilterProcessesUrl("/api/v1/login");
+        jwtAuthentication.setFilterProcessesUrl("/api/v1/auth/login");
         
         http
         .csrf(csrf -> csrf.disable())
@@ -34,7 +34,7 @@ public class SpringConfig {
         .authorizeHttpRequests(request -> request
             .requestMatchers("/error").permitAll()
             .requestMatchers("/h2/**").permitAll()
-            .requestMatchers(HttpMethod.POST, "/api/v1/register").permitAll()
+            .requestMatchers(HttpMethod.POST, "/api/v1/auth/register").permitAll()
             .anyRequest().authenticated()
         )
         .addFilter(jwtAuthentication)

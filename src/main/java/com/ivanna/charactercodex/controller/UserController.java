@@ -12,6 +12,8 @@ import com.ivanna.charactercodex.dto.response.UserResponseDto;
 import com.ivanna.charactercodex.service.UserService;
 
 import jakarta.validation.Valid;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -30,7 +32,7 @@ public class UserController {
         return new ResponseEntity<>(userService.registerUser(dto), HttpStatus.CREATED);
     }
 
-    @PostMapping("/me")
+    @GetMapping("/me")
     public ResponseEntity<UserResponseDto> me(Authentication authentication) {
         return new ResponseEntity<>(userService.getCurrentUser(authentication.getName()), HttpStatus.OK);
     }

@@ -2,12 +2,15 @@ package com.ivanna.charactercodex.mapper;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.ivanna.charactercodex.dto.request.UserLoginDto;
 import com.ivanna.charactercodex.dto.request.UserRegisterDto;
 import com.ivanna.charactercodex.dto.response.UserResponseDto;
 import com.ivanna.charactercodex.entity.Role;
 import com.ivanna.charactercodex.entity.User;
 
+@Component
 public class UserMapper {
 
     public User toUserRegisterEntity(UserRegisterDto dto){

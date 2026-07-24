@@ -36,8 +36,8 @@ public class JWTAuthentication extends UsernamePasswordAuthenticationFilter{
             User user = new ObjectMapper().readValue(request.getInputStream(), User.class);
             Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
             return customAuthenticationManager.authenticate(authentication);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException("Invalid login", e);
         }
     }
 
