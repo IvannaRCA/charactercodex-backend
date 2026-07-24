@@ -9,4 +9,6 @@ import com.ivanna.charactercodex.entity.User;
 
 public interface UserRepository extends JpaRepository<User, UUID>{
     public Optional<User> findByEmail(String email);
+    
+    boolean existsByEmail(String email);
 }

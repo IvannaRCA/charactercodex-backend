@@ -1,24 +1,21 @@
 package com.ivanna.charactercodex.mapper;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import java.util.List;
 
 import com.ivanna.charactercodex.dto.request.UserLoginDto;
 import com.ivanna.charactercodex.dto.request.UserRegisterDto;
+import com.ivanna.charactercodex.dto.response.UserResponseDto;
+import com.ivanna.charactercodex.entity.Role;
 import com.ivanna.charactercodex.entity.User;
 
 public class UserMapper {
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    public UserMapper(BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
 
     public User toUserRegisterEntity(UserRegisterDto dto){
         if (dto == null) return null;
         return User.builder()
                 .name(dto.name())
                 .email(dto.email())
-                .password(bCryptPasswordEncoder.encode(dto.password()))
+                .password(dto.password())
                 .build();
     }
 
@@ -28,5 +25,18 @@ public class UserMapper {
                 .email(dto.email())
                 .password(dto.password())
                 .build();
+    }
+
+    public UserResponseDto toUserResponseDto(User user){
+        List<String> roleNames = user.getRoles().stream()
+            .map(Role::getName)
+            .toList();
+
+        return new UserResponseDto(
+            user.getId(),
+            user.getName(),
+            user.getEmail(),
+            roleNames
+        );
     }
 }
