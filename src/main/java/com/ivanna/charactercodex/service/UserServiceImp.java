@@ -12,6 +12,8 @@ import com.ivanna.charactercodex.dto.request.UserRegisterDto;
 import com.ivanna.charactercodex.dto.response.UserResponseDto;
 import com.ivanna.charactercodex.entity.Role;
 import com.ivanna.charactercodex.entity.User;
+import com.ivanna.charactercodex.exception.DuplicateResourceException;
+import com.ivanna.charactercodex.exception.EntityNotFoundException;
 import com.ivanna.charactercodex.mapper.UserMapper;
 import com.ivanna.charactercodex.repository.RoleRepository;
 import com.ivanna.charactercodex.repository.UserRepository;
@@ -36,8 +38,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public UserResponseDto registerUser(UserRegisterDto userRegisterDto) {
         if (userRepository.existsByEmail(userRegisterDto.email())) {
-            throw new IllegalAccessError(
-                    "Email already registered: " + userRegisterDto.email());
+            throw new DuplicateResourceException(userRegisterDto.email());
         }
 
         Role userRole = roleRepository.findByName(DEFAULT_ROLE)
@@ -55,7 +56,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public UserResponseDto getCurrentUser(String email) {
         User user = userRepository.findByEmail(email)
-        .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+        .orElseThrow(() -> new EntityNotFoundException(User.class, email));
         return userMapper.toUserResponseDto(user);
     }
 
@@ -63,7 +64,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email)
         .map(user -> new UserDetail(user))
-        .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+        .orElseThrow(() -> new EntityNotFoundException(User.class, email));
     }
 
 

@@ -32,6 +32,7 @@ public class SpringConfig {
         .csrf(csrf -> csrf.disable())
         .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
         .authorizeHttpRequests(request -> request
+            .requestMatchers("/error").permitAll()
             .requestMatchers("/h2/**").permitAll()
             .requestMatchers(HttpMethod.POST, "/api/v1/register").permitAll()
             .anyRequest().authenticated()
