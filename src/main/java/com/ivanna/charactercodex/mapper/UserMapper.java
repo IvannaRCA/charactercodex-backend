@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.ivanna.charactercodex.dto.request.UserLoginDto;
 import com.ivanna.charactercodex.dto.request.UserRegisterDto;
+import com.ivanna.charactercodex.dto.request.UserUpdateDto;
 import com.ivanna.charactercodex.dto.response.UserResponseDto;
 import com.ivanna.charactercodex.entity.Role;
 import com.ivanna.charactercodex.entity.User;
@@ -41,5 +42,10 @@ public class UserMapper {
             user.getEmail(),
             roleNames
         );
+    }
+
+    public void toUserUpdateEntity(User user, UserUpdateDto dto) {
+        user.setName(dto.name());
+        user.setEmail(dto.email());
     }
 }
