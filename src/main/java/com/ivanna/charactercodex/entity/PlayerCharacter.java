@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -90,4 +92,7 @@ public class PlayerCharacter {
     @ToString.Exclude
     @Builder.Default
     private Set<Spell> spells = new HashSet<>();
+
+    @OneToOne(mappedBy = "character", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Inventory inventory;
 }
