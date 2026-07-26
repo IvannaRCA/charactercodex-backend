@@ -1,0 +1,10 @@
+[
+  { "name": "Fire Bolt", "description": "A mote of fire streaks toward a target, dealing fire damage on impact.", "level": 0 },
+  { "name": "Guidance", "description": "A gentle whisper of divine insight aids the recipient's next skill check.", "level": 0 },
+  { "name": "Magic Missile", "description": "Three glowing darts of magical force strike unerringly at chosen targets.", "level": 1 },
+  { "name": "Cure Wounds", "description": "A creature touched by the caster regains a portion of lost health.", "level": 1 },
+  { "name": "Vicious Mockery", "description": "A string of insults laced with subtle magic causes the target psychic pain.", "level": 0 },
+  { "name": "Fireball", "description": "A bright streak flashes to a point before erupting into a roaring blast of flame.", "level": 3 },
+  { "name": "Healing Word", "description": "A quick word of divine power mends wounds from a distance.", "level": 1 },
+  { "name": "Suggestion", "description": "The caster plants a subtle command in the target's mind, compelling reasonable action." , "level": 2 }
+]
