@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ivanna.charactercodex.dto.request.UserRegisterDto;
+import com.ivanna.charactercodex.dto.request.UserUpdateDto;
 import com.ivanna.charactercodex.dto.response.UserResponseDto;
 import com.ivanna.charactercodex.entity.Role;
 import com.ivanna.charactercodex.entity.User;
@@ -67,5 +68,18 @@ public class UserServiceImp implements UserService, UserDetailsService {
         .orElseThrow(() -> new EntityNotFoundException(User.class, email));
     }
 
+    @Override
+    public UserResponseDto updateUser(String currentEmail, UserUpdateDto dto) {
+        User user = userRepository.findByEmail(currentEmail)
+            .orElseThrow(() -> new EntityNotFoundException(User.class, currentEmail));
 
+        boolean emailChanged = !dto.email().equalsIgnoreCase(user.getEmail());
+        if (emailChanged && userRepository.existsByEmail(dto.email())) {
+            throw new DuplicateResourceException("Email already registered: " + dto.email());
+        }
+
+        userMapper.toUserUpdateEntity(user, dto);
+
+        return userMapper.toUserResponseDto(userRepository.save(user));
+    }
 }

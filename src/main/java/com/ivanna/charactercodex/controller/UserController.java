@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ivanna.charactercodex.dto.request.UserRegisterDto;
+import com.ivanna.charactercodex.dto.request.UserUpdateDto;
 import com.ivanna.charactercodex.dto.response.UserResponseDto;
 import com.ivanna.charactercodex.service.UserService;
 
@@ -15,6 +16,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
@@ -37,5 +39,9 @@ public class UserController {
         return new ResponseEntity<>(userService.getCurrentUser(authentication.getName()), HttpStatus.OK);
     }
     
+    @PutMapping("/me")
+    public ResponseEntity<UserResponseDto> updateMe(Authentication authentication, @Valid @RequestBody UserUpdateDto dto) {
+        return new ResponseEntity<>(userService.updateUser(authentication.getName(), dto), HttpStatus.OK);
+    }
 
 }
