@@ -9,18 +9,21 @@ import com.ivanna.charactercodex.dto.seed.ArmorSeedDto;
 import com.ivanna.charactercodex.dto.seed.CharClassSeedDto;
 import com.ivanna.charactercodex.dto.seed.InvObjectSeedDto;
 import com.ivanna.charactercodex.dto.seed.RaceSeedDto;
+import com.ivanna.charactercodex.dto.seed.SpellSeedDto;
 import com.ivanna.charactercodex.dto.seed.WeaponSeedDto;
 import com.ivanna.charactercodex.entity.Armor;
 import com.ivanna.charactercodex.entity.CharClass;
 import com.ivanna.charactercodex.entity.InvObject;
 import com.ivanna.charactercodex.entity.Race;
 import com.ivanna.charactercodex.entity.Role;
+import com.ivanna.charactercodex.entity.Spell;
 import com.ivanna.charactercodex.entity.Weapon;
 import com.ivanna.charactercodex.repository.ArmorRepository;
 import com.ivanna.charactercodex.repository.CharClassRepository;
 import com.ivanna.charactercodex.repository.InvObjectRepository;
 import com.ivanna.charactercodex.repository.RaceRepository;
 import com.ivanna.charactercodex.repository.RoleRepository;
+import com.ivanna.charactercodex.repository.SpellRepository;
 import com.ivanna.charactercodex.repository.WeaponRepository;
 import com.ivanna.charactercodex.util.SeedJsonReader;
 
@@ -39,6 +42,7 @@ public class DataSeeder implements CommandLineRunner{
     private final ArmorRepository armorRepository;
     private final WeaponRepository weaponRepository;
     private final InvObjectRepository invObjectRepository;
+    private final SpellRepository spellRepository;
 
     @Override
     public void run(String... args){
@@ -48,6 +52,7 @@ public class DataSeeder implements CommandLineRunner{
         seedArmors();
         seedWeapons();
         seedObjects();
+        seedSpells();
     }
 
 
@@ -129,4 +134,17 @@ public class DataSeeder implements CommandLineRunner{
         }
     }
 
+    private void seedSpells() {
+        List<SpellSeedDto> spells = seedJsonReader.readList("spells.json", SpellSeedDto.class);
+        for (SpellSeedDto dto : spells) {
+            if (!spellRepository.existsByName(dto.name())) {
+                spellRepository.save(Spell.builder()
+                        .name(dto.name())
+                        .description(dto.description())
+                        .level(dto.level())
+                        .build());
+                log.info("Seeded spell: {}", dto.name());
+            }
+        }
+    }
 }
