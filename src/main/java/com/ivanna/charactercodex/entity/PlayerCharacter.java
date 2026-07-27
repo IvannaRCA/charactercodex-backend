@@ -95,4 +95,7 @@ public class PlayerCharacter {
 
     @OneToOne(mappedBy = "character", cascade = CascadeType.ALL, orphanRemoval = true)
     private Inventory inventory;
+
+    @OneToOne(mappedBy = "character", cascade = CascadeType.ALL, orphanRemoval = true)
+    private CharacterImage image;
 }
