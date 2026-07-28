@@ -60,12 +60,15 @@ public class CharacterController {
         @Valid @RequestBody CharacterCreateDto dto, 
         Authentication authentication) {
     
-        return new ResponseEntity<>(characterService.updateCharacter(id, dto, authentication.getName()), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(characterService.updateCharacter(id, dto, authentication.getName()), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCharacter(@PathVariable UUID id, Authentication authentication) {
+    public ResponseEntity<Void> deleteCharacter(
+        @PathVariable UUID id, 
+        Authentication authentication) {
+        
         characterService.deleteCharacter(id, authentication.getName());
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
