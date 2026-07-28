@@ -24,7 +24,7 @@ import com.ivanna.charactercodex.service.InventoryService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/v1/characters/{characterId/inventory}")
+@RequestMapping("/api/v1/characters/{characterId}/inventory")
 public class InventoryController {
 
     private final InventoryService inventoryService;
