@@ -17,4 +17,8 @@ public interface CharacterService {
     CharacterDetailResponseDto updateCharacter(UUID characterId, CharacterCreateDto dto, String userEmail);
 
     void deleteCharacter(UUID characterId, String userEmail);
+    
+    CharacterDetailResponseDto addSpell(UUID characterId, UUID spellId, String userEmail);
+
+    CharacterDetailResponseDto removeSpell(UUID characterId, UUID spellId, String userEmail);
 }

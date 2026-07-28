@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ivanna.charactercodex.dto.request.AddSpellDto;
 import com.ivanna.charactercodex.dto.request.CharacterCreateDto;
 import com.ivanna.charactercodex.dto.response.CharacterDetailResponseDto;
 import com.ivanna.charactercodex.dto.response.CharacterListResponseDto;
@@ -70,5 +71,21 @@ public class CharacterController {
         
         characterService.deleteCharacter(id, authentication.getName());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/{id}/spells")
+    public ResponseEntity<CharacterDetailResponseDto> addSpell(@PathVariable UUID id,
+        @Valid @RequestBody AddSpellDto dto,
+        Authentication authentication) {
+        
+        return new ResponseEntity<>(characterService.addSpell(id, dto.spellId(), authentication.getName()), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}/spells/{spellId}")
+    public ResponseEntity<CharacterDetailResponseDto> removeSpell(@PathVariable UUID id,
+        @PathVariable UUID spellId,
+        Authentication authentication) {
+        
+        return new ResponseEntity<>(characterService.removeSpell(id, spellId, authentication.getName()), HttpStatus.OK);
     }
 }
