@@ -77,7 +77,7 @@ public class InventoryServiceImp implements InventoryService {
     public CharacterDetailResponseDto unequipArmor(UUID characterId, String userEmail) {
         PlayerCharacter character = characterAccessGuard.getUserCharacter(characterId, userEmail);
 
-        character.getInventory().setWeapon(null);
+        character.getInventory().setArmor(null);
         inventoryRepository.save(character.getInventory());
         return characterMapper.toCharacterDetailDto(character);
     }
