@@ -3,6 +3,8 @@ package com.ivanna.charactercodex.mapper;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.ivanna.charactercodex.dto.request.CharacterCreateDto;
 import com.ivanna.charactercodex.dto.response.CharacterDetailResponseDto;
 import com.ivanna.charactercodex.dto.response.CharacterListResponseDto;
@@ -15,6 +17,7 @@ import com.ivanna.charactercodex.entity.Race;
 import com.ivanna.charactercodex.entity.Spell;
 import com.ivanna.charactercodex.entity.User;
 
+@Component
 public class CharacterMapper {
 
     public PlayerCharacter toCharacterEntity(CharacterCreateDto dto, User user, Race race, CharClass charClass) {
