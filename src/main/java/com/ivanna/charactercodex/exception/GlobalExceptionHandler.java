@@ -49,4 +49,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
         ErrorResponse errors = new ErrorResponse(Arrays.asList(ex.getMessage()));
         return new ResponseEntity<>(errors, HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(InvalidOperationException.class)
+    public ResponseEntity<Object> InvalidOperationException(InvalidOperationException ex) {
+        ErrorResponse errors = new ErrorResponse(Arrays.asList(ex.getMessage()));
+        return new ResponseEntity<>(errors, HttpStatus.FORBIDDEN);
+    }
 }

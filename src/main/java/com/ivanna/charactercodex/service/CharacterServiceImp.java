@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.ivanna.charactercodex.constant.SpellcasterClasses;
 import com.ivanna.charactercodex.dto.request.CharacterCreateDto;
 import com.ivanna.charactercodex.dto.response.CharacterDetailResponseDto;
 import com.ivanna.charactercodex.dto.response.CharacterListResponseDto;
@@ -12,13 +13,16 @@ import com.ivanna.charactercodex.entity.CharClass;
 import com.ivanna.charactercodex.entity.Inventory;
 import com.ivanna.charactercodex.entity.PlayerCharacter;
 import com.ivanna.charactercodex.entity.Race;
+import com.ivanna.charactercodex.entity.Spell;
 import com.ivanna.charactercodex.entity.User;
 import com.ivanna.charactercodex.exception.EntityNotFoundException;
+import com.ivanna.charactercodex.exception.InvalidOperationException;
 import com.ivanna.charactercodex.mapper.CharacterMapper;
 import com.ivanna.charactercodex.repository.CharClassRepository;
 import com.ivanna.charactercodex.repository.InventoryRepository;
 import com.ivanna.charactercodex.repository.PlayerCharacterRepository;
 import com.ivanna.charactercodex.repository.RaceRepository;
+import com.ivanna.charactercodex.repository.SpellRepository;
 import com.ivanna.charactercodex.repository.UserRepository;
 import com.ivanna.charactercodex.security.CharacterAccessGuard;
 
@@ -30,15 +34,17 @@ public class CharacterServiceImp implements CharacterService {
     private final RaceRepository raceRepository;
     private final CharClassRepository charClassRepository;
     private final InventoryRepository inventoryRepository;
+    private final SpellRepository spellRepository;
     private final CharacterAccessGuard characterAccessGuard;
     private final CharacterMapper characterMapper;
     
-    public CharacterServiceImp(PlayerCharacterRepository characterRepository, UserRepository userRepository, RaceRepository raceRepository, CharClassRepository charClassRepository, InventoryRepository inventoryRepository, CharacterAccessGuard characterAccessGuard, CharacterMapper characterMapper) {
+    public CharacterServiceImp(PlayerCharacterRepository characterRepository, UserRepository userRepository, RaceRepository raceRepository, CharClassRepository charClassRepository, InventoryRepository inventoryRepository, SpellRepository spellRepository, CharacterAccessGuard characterAccessGuard, CharacterMapper characterMapper) {
         this.characterRepository = characterRepository;
         this.userRepository = userRepository;
         this.raceRepository = raceRepository;
         this.charClassRepository = charClassRepository;
         this.inventoryRepository = inventoryRepository;
+        this.spellRepository = spellRepository;
         this.characterAccessGuard = characterAccessGuard;
         this.characterMapper = characterMapper;
     }
@@ -106,5 +112,37 @@ public class CharacterServiceImp implements CharacterService {
                 .build();
         inventoryRepository.save(inventory);
         character.setInventory(inventory);
+    }
+
+    @Override
+    public CharacterDetailResponseDto addSpell(UUID characterId, UUID spellId, String userEmail) {
+        PlayerCharacter character = characterAccessGuard.getUserCharacter(characterId, userEmail);
+        validateSpellcaster(character);
+
+        Spell spell = spellRepository.findById(spellId)
+            .orElseThrow(() -> new EntityNotFoundException(Spell.class, spellId.toString()));
+
+        character.getSpells().add(spell);
+
+        return characterMapper.toCharacterDetailDto(characterRepository.save(character));
+    }
+
+    @Override
+    public CharacterDetailResponseDto removeSpell(UUID characterId, UUID spellId, String userEmail) {
+        PlayerCharacter character = characterAccessGuard.getUserCharacter(characterId, userEmail);
+        validateSpellcaster(character);
+
+        Spell spell = spellRepository.findById(spellId)
+            .orElseThrow(() -> new EntityNotFoundException(Spell.class, spellId.toString()));
+
+        character.getSpells().remove(spell);
+
+        return characterMapper.toCharacterDetailDto(characterRepository.save(character));
+    }
+
+    private void validateSpellcaster(PlayerCharacter character) {
+        if (!SpellcasterClasses.NAMES.contains(character.getCharClass().getName().toUpperCase())) {
+            throw new InvalidOperationException(SpellcasterClasses.NAMES.stream().toList());
+        }
     }
 }
