@@ -8,7 +8,9 @@ public record CharacterDetailResponseDto(
     String name,
     Integer level,
     Integer armorClass,
+    UUID raceId,
     String raceName,
+    UUID classId,
     String className,
     Integer strength,
     Integer constitution,
@@ -18,7 +20,7 @@ public record CharacterDetailResponseDto(
     Integer charisma,
     String description,
     String history,
-    List<String> spellNames,
+    List<SpellDto> spells,
     InventoryResponseDto inventory
 ) {
 
