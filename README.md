@@ -181,7 +181,7 @@ Place the diagram in:
 
 `docs/ER-Diagram.png`
 
-![Database Schema](docs/database_schema.png)
+![Database Schema](docs/ER-Diagram.png)
 
 ---
 
