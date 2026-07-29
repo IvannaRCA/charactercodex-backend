@@ -1,6 +1,5 @@
 package com.ivanna.charactercodex.mapper;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -10,11 +9,11 @@ import com.ivanna.charactercodex.dto.response.CharacterDetailResponseDto;
 import com.ivanna.charactercodex.dto.response.CharacterListResponseDto;
 import com.ivanna.charactercodex.dto.response.InventoryResponseDto;
 import com.ivanna.charactercodex.dto.response.ObjectResponseDto;
+import com.ivanna.charactercodex.dto.response.SpellDto;
 import com.ivanna.charactercodex.entity.CharClass;
 import com.ivanna.charactercodex.entity.Inventory;
 import com.ivanna.charactercodex.entity.PlayerCharacter;
 import com.ivanna.charactercodex.entity.Race;
-import com.ivanna.charactercodex.entity.Spell;
 import com.ivanna.charactercodex.entity.User;
 
 @Component
@@ -72,21 +71,26 @@ public class CharacterMapper {
     }
 
     public CharacterDetailResponseDto toCharacterDetailDto(PlayerCharacter character) {
-        List<String> spells = character.getSpells().stream()
-        .map(Spell::getName)
+        List<SpellDto> spellDtos = character.getSpells().stream()
+        .map(s -> new SpellDto(s.getId(), s.getName(), s.getDescription(), s.getLevel()))
         .toList();
 
         InventoryResponseDto inventoryResponseDto = null;
         Inventory inventory = character.getInventory();
         if (inventory != null) {
             List<ObjectResponseDto> objectDtos = inventory.getEntries().stream()
-            .map(entry -> new ObjectResponseDto(entry.getObject().getName(),entry.getQuantity()))
+            .map(entry -> new ObjectResponseDto(
+                entry.getObject().getId(),
+                entry.getObject().getName(),
+                entry.getQuantity()))
             .toList();
 
             inventoryResponseDto = new InventoryResponseDto(
                 inventory.getGold(),
-                inventory.getWeapon() != null ? inventory.getWeapon().getName() :null,
-                inventory.getArmor() != null ? inventory.getArmor().getName() :null,
+                inventory.getWeapon() != null ? inventory.getWeapon().getId() : null,
+                inventory.getWeapon() != null ? inventory.getWeapon().getName() : null,
+                inventory.getArmor() != null ? inventory.getArmor().getId() : null,
+                inventory.getArmor() != null ? inventory.getArmor().getName() : null,
                 objectDtos
             );
         }
@@ -96,7 +100,9 @@ public class CharacterMapper {
             character.getName(),
             character.getLevel(),
             character.getArmorClass(),
+            character.getRace().getId(),
             character.getRace().getName(),
+            character.getCharClass().getId(),
             character.getCharClass().getName(),
             character.getStrength(),
             character.getConstitution(),
@@ -106,7 +112,7 @@ public class CharacterMapper {
             character.getCharisma(),
             character.getDescription(),
             character.getHistory(),
-            spells.isEmpty() ? Collections.emptyList() : spells,
+            spellDtos,
             inventoryResponseDto
         );
     }
