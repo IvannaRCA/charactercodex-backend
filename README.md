@@ -179,9 +179,9 @@ The application uses PostgreSQL as its relational database. Database administrat
 
 Place the diagram in:
 
-`docs/database_schema.png`
+`docs/ER-Diagram.png`
 
-![Database Schema](docs/database_schema.png)
+![Database Schema](docs/ER-Diagram.png)
 
 ---
 
